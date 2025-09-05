@@ -8,12 +8,18 @@ import Timeline from '../screens/Timeline/Timeline';
 import Profile from '../screens/Profile/Profile';
 import bottomBar from './BottomBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import SplashScreen from '../screens/Splash/Splash';
 
 const stack = createNativeStackNavigator();
 const Stack = () => {
   return (
     <NavigationContainer>
       <stack.Navigator>
+        <stack.Screen
+          name="splash"
+          component={SplashScreen}
+          options={{ headerShown: false }}
+        />
         <stack.Screen
           name="bottomBar"
           component={bottomBar}

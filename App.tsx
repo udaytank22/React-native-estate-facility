@@ -1,23 +1,26 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Stack from './src/Navigation/Stack';
-import { StatusBar } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+import Stack from './src/Navigation/AppStack';
+import { Platform, StatusBar } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import AppNav from './src/Navigation/AppNav';
+import AuthProvider from './src/Context/AuthContex';
+import { requestCameraPermission } from './src/Utils/PermissionUtils';
 
 function App() {
+  useEffect(() => {
+    requestCameraPermission();
+  }, []);
+
   return (
-    <>
-      <StatusBar
-        animated={true}
-        backgroundColor="#000000"
-        barStyle="dark-content"
-      />
-      <Stack />
-    </>
+    <SafeAreaProvider>
+      <AuthProvider>
+        <AppNav />
+      </AuthProvider>
+    </SafeAreaProvider>
   );
 }
 

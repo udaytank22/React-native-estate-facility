@@ -1,96 +1,106 @@
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+// Components/Header.js
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { moderateScale, scale } from 'react-native-size-matters';
 
-const Header = () => {
+import BackArrow from '../Assets/Image/Icons/arrow-narrow-left.svg';
+import HeaderBuilding from '../Assets/Image/HeaderBuilding.svg';
+
+type HeaderProps = {
+  title: string;
+  actionText?: string;
+  onActionPress?: () => void;
+  description?: string;
+  backArrow?: boolean;
+  buildingVisible?: boolean;
+};
+
+const Header: React.FC<HeaderProps> = ({
+  title,
+  actionText,
+  onActionPress,
+  description,
+  backArrow,
+  buildingVisible,
+}) => {
+  const navigation = useNavigation<any>();
   return (
     <LinearGradient
-      colors={['#026BCA', '#059DFF']}
+      colors={['#106099', '#2181bf', '#106099']}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={styles.gradientBackground}
     >
-      <View style={styles.header}>
+      {buildingVisible && (
+        <View style={styles.buildingWrapper}>
+          <HeaderBuilding width={scale(208)} height={scale(146.41)} />
+        </View>
+      )}
+      <View style={[styles.container, { gap: 10 }]}>
+        <TouchableOpacity
+          onPress={onActionPress}
+          style={{ height: moderateScale(24), width: moderateScale(24) }}
+        >
+          {backArrow && (
+            <BackArrow
+              width={24}
+              height={24}
+              onPress={() => navigation.goBack()}
+            />
+          )}
+        </TouchableOpacity>
         <View>
-          <Text style={styles.location}>Ahmedabad Opal 1</Text>
-          <Text style={styles.block}>Block A-001</Text>
+          <Text style={styles.title}>{title}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.descriptionText}>{description}</Text>
+            {actionText && (
+              <TouchableOpacity onPress={onActionPress}>
+                <Text style={styles.actionText}> {actionText}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-        <View style={styles.headerIcons}>
-          <TouchableOpacity style={styles.iconWrap}>
-            <Icon name="bell" size={20} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconWrap}>
-            <Icon name="user" size={20} color="#fff" />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.searchContainer}>
-        <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
-        <TextInput
-          placeholder="Search"
-          placeholderTextColor="#999"
-          style={styles.searchInput}
-        />
       </View>
     </LinearGradient>
   );
 };
 
 export default Header;
+
 const styles = StyleSheet.create({
   gradientBackground: {
-    flex: 0.01,
+    height: scale(120),
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
+  container: {
+    paddingHorizontal: moderateScale(24),
   },
-  location: {
-    fontSize: 16,
-    fontWeight: '600',
+  title: {
+    fontFamily: 'Inter-Bold',
+    fontSize: scale(32),
+    fontWeight: '700',
     color: '#fff',
   },
-  block: {
-    fontSize: 12,
-    color: '#e0e0e0',
+  actionText: {
+    fontSize: scale(12),
+    fontWeight: '600',
+    color: '#fff',
+    textDecorationLine: 'underline',
+    fontFamily: 'Inter-Medium',
   },
-  headerIcons: {
-    flexDirection: 'row',
-    gap: 12,
+  descriptionText: {
+    fontFamily: 'Inter-Medium',
+    fontSize: scale(12),
+    fontWeight: '400',
+    color: '#fff',
   },
-  iconWrap: {
-    padding: 6,
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: Platform.OS === 'ios' ? 10 : 0,
-    marginHorizontal: 16,
-    marginTop: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2, // for Android
-  },
-  searchIcon: {
-    marginRight: 8,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#000',
+  buildingWrapper: {
+    position: 'absolute',
+    right: -45,
+    bottom: 0,
+    height: scale(100), // 👈 show only half (half of 146 ≈ 73)
+    overflow: 'hidden',
+    zIndex: 0,
   },
 });

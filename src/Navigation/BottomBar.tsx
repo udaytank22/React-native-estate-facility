@@ -6,8 +6,14 @@ import Society from '../screens/Society/Society';
 import Timeline from '../screens/Timeline/Timeline';
 import Profile from '../screens/Profile/Profile';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 
+// SVG imports (as components)
+import {
+  InActiveHome,
+  InActiveSociety,
+  InActiveTimeLine,
+  InActiveProfile,
+} from '../Assets/Constant/Images';
 const Tab = createBottomTabNavigator();
 
 type TabName = 'Home' | 'Society' | 'Timeline' | 'Profile';
@@ -15,12 +21,12 @@ type TabName = 'Home' | 'Society' | 'Timeline' | 'Profile';
 const tabs: {
   name: TabName;
   component: React.ComponentType<any>;
-  icon: string;
+  Icon: React.ComponentType<any>;
 }[] = [
-  { name: 'Home', component: Home, icon: 'home' },
-  { name: 'Society', component: Society, icon: 'building' },
-  { name: 'Timeline', component: Timeline, icon: 'th-large' }, // pick better grid-like icon if needed
-  { name: 'Profile', component: Profile, icon: 'user' },
+  { name: 'Home', component: Home, Icon: InActiveHome },
+  { name: 'Society', component: Society, Icon: InActiveSociety },
+  { name: 'Timeline', component: Timeline, Icon: InActiveTimeLine },
+  { name: 'Profile', component: Profile, Icon: InActiveProfile },
 ];
 
 const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
@@ -28,7 +34,7 @@ const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
     <View style={styles.tabContainer}>
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
-        const { icon, name } = tabs[index];
+        const { Icon, name } = tabs[index];
 
         const onPress = () => {
           if (!isFocused) {
@@ -46,15 +52,14 @@ const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
             <View style={[styles.innerTab]}>
               {isFocused && <View style={styles.activeIndicator} />}
               <Icon
-                name={icon}
-                size={24}
-                color={isFocused ? '#003366' : '#000'}
-                solid={isFocused}
+                width={28}
+                height={28}
+                fill={isFocused ? '#034175' : 'transperent'} // 👈 Change color here
               />
               <Text
                 style={[
                   styles.label,
-                  { color: isFocused ? '#003366' : '#000' },
+                  { color: isFocused ? '#034175' : '#000' },
                 ]}
               >
                 {name}
@@ -109,8 +114,8 @@ const styles = StyleSheet.create({
   activeIndicator: {
     position: 'absolute',
     top: 0,
-    width: '60%', // adjust width to control pill size
-    height: 4, // thickness of bar
+    width: '60%',
+    height: 4,
     backgroundColor: '#003366',
     borderBottomLeftRadius: 4,
     borderBottomRightRadius: 4,

@@ -66,10 +66,7 @@ const SplashScreen = ({ navigation }: any) => {
           useNativeDriver: true,
         }),
       ]),
-    ]).start(() => {
-      // Navigate after animation finishes
-      navigation.replace('bottomBar');
-    });
+    ]).start(() => {});
   }, []);
 
   return (
@@ -85,7 +82,7 @@ const SplashScreen = ({ navigation }: any) => {
             },
           ]}
         />
-        <Animated.View
+        {/* <Animated.View
           style={[
             styles.circle,
             {
@@ -102,7 +99,7 @@ const SplashScreen = ({ navigation }: any) => {
               opacity: circle3Opacity,
             },
           ]}
-        />
+        /> */}
       </View>
 
       {/* Logo in front */}

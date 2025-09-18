@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { scale } from 'react-native-size-matters';
 
-const GateTabs = ({ tabs = [], onTabChange }: any) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const handlePress = (index: any) => {
-    setActiveIndex(index);
-    onTabChange?.(tabs[index]); // send back selected tab
-  };
-
+const GateTabs = ({ tabs = [], selectedTab, onTabChange }: any) => {
+  console.log(selectedTab);
   return (
     <View style={styles.container}>
-      {tabs.map((tab: string, index: any) => {
-        const isActive = activeIndex === index;
+      {tabs.map((tab: string, index: number) => {
+        const isActive = selectedTab === tab;
         return (
           <TouchableOpacity
             key={index}
             style={styles.tabWrapper}
-            onPress={() => handlePress(index)}
+            onPress={() => onTabChange?.(tab)}
             activeOpacity={0.8}
           >
             {isActive ? (

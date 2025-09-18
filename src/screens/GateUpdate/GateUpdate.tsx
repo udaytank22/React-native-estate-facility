@@ -146,6 +146,7 @@ const GateUpdate = () => {
               <GateTabs
                 tabs={['Visitors', 'Vehicles', 'Staff', 'Denied']}
                 onTabChange={handleTabChange}
+                selectedTab={selectedTab}
               />
             </View>
           </View>

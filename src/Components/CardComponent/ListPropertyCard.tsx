@@ -2,6 +2,7 @@ import {
   Dimensions,
   Image,
   ListRenderItem,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -17,9 +18,9 @@ const CARD_WIDTH = (width - 24 * 2 - CARD_MARGIN) / 2;
 
 import { PhoneCall, Arrow } from '../../Assets/Constant/Images';
 
-const PropertyCard = ({ property }: any) => {
+const PropertyCard = ({ property, onPress }: any) => {
   return (
-    <View style={styles.card}>
+    <Pressable style={styles.card} onPress={onPress}>
       <View style={styles.imageContainer}>
         <Swiper
           style={styles.swiper}
@@ -60,7 +61,7 @@ const PropertyCard = ({ property }: any) => {
           <PhoneCall height={verticalScale(28)} width={scale(28)} />
         </TouchableOpacity>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

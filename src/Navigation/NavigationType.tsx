@@ -31,6 +31,11 @@ export type AppStackParamList = {
   GateUpdate: undefined;
   Bill: undefined;
   VisitPass: undefined;
+  Business: undefined;
+  BusinessDetails: undefined;
+  HelpDesk: undefined;
+  UserDetails: undefined;
+  Search: undefined;
 };
 
 export type BottomTabParamList = {

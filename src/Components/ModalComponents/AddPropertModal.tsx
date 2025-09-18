@@ -14,8 +14,6 @@ import RadioButton from '../FormComponent/RadioButton';
 import { Dropdown } from 'react-native-element-dropdown';
 import { MainButtonComponent } from '../FormComponent/ButtonComponent';
 import CameraModalComponent from './ImageOptionModal';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { Value } from 'react-native/types_generated/Libraries/Animated/AnimatedExports';
 import { pickFromCamera, pickFromGallery } from '../../Utils/imagePicker';
 
 const data = [
@@ -46,7 +44,6 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
   const [description, setDescription] = useState('');
   const [industryType, setIndustryType] = useState('');
   const [optionModalVisible, setOptionModalVisible] = useState(false);
-  const [address, setAddress] = useState('');
   const [imageUri, setImageUri] = useState('');
 
   const openCamera = async () => {

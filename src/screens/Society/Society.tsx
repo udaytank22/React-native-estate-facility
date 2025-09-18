@@ -26,7 +26,6 @@ import {
   VisitorPass,
   Maintanance,
   RightArrow,
-  PhoneCall,
 } from '../../Assets/Constant/Images';
 import CameraModalComponent from '../../Components/ModalComponents/ImageOptionModal';
 import ServicesCard from '../../Components/CardComponent/ServiceCardCompoent';
@@ -37,17 +36,9 @@ import {
   socityContact,
 } from '../../Assets/StaticData/StaticData';
 import { MainStyle } from '../../Assets/Style/MainStyle';
+import { moderateScale, scale, verticalScale } from '../../Utils/scale';
 
 const { width, height } = Dimensions.get('window');
-
-const guidelineBaseWidth = 375;
-const guidelineBaseHeight = 812;
-
-export const scale = (size: number) => (width / guidelineBaseWidth) * size;
-export const verticalScale = (size: number) =>
-  (height / guidelineBaseHeight) * size;
-export const moderateScale = (size: number, factor = 0.5) =>
-  size + (scale(size) - size) * factor;
 
 const Society = () => {
   const navigation = useNavigation();
@@ -99,7 +90,6 @@ const Society = () => {
       Icon={item.icon}
       name={item.name}
       contact={item.contact}
-      CallIcon={PhoneCall}
       onPressCall={() => console.log(`Calling ${item.name}...`)}
     />
   );
@@ -111,7 +101,7 @@ const Society = () => {
         source={
           imageUri
             ? { uri: imageUri }
-            : require('../../Assets/Image/tallBuilding.jpeg')
+            : require('../../Assets/Image/building.jpg')
         }
         style={styles.headerImage}
       >
@@ -452,7 +442,7 @@ const styles = StyleSheet.create({
   },
   actionLabel: {
     fontFamily: 'Inter',
-    fontSize: scale(12),
+    fontSize: moderateScale(12),
     fontWeight: '400',
     color: '#000000',
     textAlign: 'center',

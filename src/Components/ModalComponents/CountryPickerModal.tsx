@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Modal,
   View,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   TouchableWithoutFeedback,
+  TextInput,
 } from 'react-native';
 import { moderateVerticalScale, scale } from 'react-native-size-matters';
 
@@ -30,31 +31,58 @@ const CountryPickerModal: React.FC<CountryPickerModalProps> = ({
   onSelect,
   countryCodes,
 }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Filter countries based on name, code, or dial_code
+  const filteredCountries = useMemo(() => {
+    if (!searchQuery) return countryCodes;
+    const query = searchQuery.toLowerCase();
+    return countryCodes.filter(
+      c =>
+        c.name?.toLowerCase().includes(query) ||
+        c.code?.toLowerCase().includes(query) ||
+        c.dial_code?.includes(query),
+    );
+  }, [searchQuery, countryCodes]);
+
   return (
     <Modal visible={visible} animationType="slide" transparent>
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Select Country</Text>
-            <FlatList
-              data={countryCodes}
-              keyExtractor={item => item.code}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.countryItem}
-                  onPress={() => {
-                    onSelect(item);
-                    onClose();
-                  }}
-                >
-                  <Text style={{ fontSize: 22 }}>{item.flag}</Text>
-                  <Text style={{ marginLeft: 10 }}>
-                    {item.name} ({item.dial_code})
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
+          <TouchableWithoutFeedback onPress={() => {}}>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalTitle}>Select Country</Text>
+
+              {/* Search Input */}
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search country..."
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+              />
+
+              {/* Country List */}
+              <FlatList
+                data={filteredCountries}
+                keyExtractor={item => item.code}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.countryItem}
+                    onPress={() => {
+                      onSelect(item);
+                      onClose();
+                    }}
+                  >
+                    <Text style={{ fontSize: 22 }}>{item.flag}</Text>
+                    <Text style={{ marginLeft: 10 }}>
+                      {item.name} ({item.dial_code})
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
     </Modal>
@@ -80,6 +108,15 @@ const styles = StyleSheet.create({
     fontSize: scale(18),
     fontWeight: '700',
     marginBottom: moderateVerticalScale(10),
+  },
+  searchInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: scale(10),
+    paddingHorizontal: scale(10),
+    paddingVertical: moderateVerticalScale(8),
+    marginBottom: moderateVerticalScale(10),
+    fontSize: scale(14),
   },
   countryItem: {
     flexDirection: 'row',

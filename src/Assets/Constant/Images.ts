@@ -43,6 +43,10 @@ import Delete from '../Image/Icons/Delete.svg';
 import QrCode from '../Image/Icons/QrCode.svg';
 import Date from '../Image/Icons/Date.svg';
 import Arrow from '../Image/Icons/Arrow.svg';
+import Share from '../Image/Icons/Share.svg';
+import RightBackArrow from '../Image/Icons/RightBackArrow.svg';
+import UserDetailProfile from '../Image/Icons/UserDetialProfile.svg';
+import PdfFile from '../Image/Icons/PdfIcon.svg';
 
 // Images
 const Property1 = require('../Image/Property1.jpg');
@@ -99,4 +103,8 @@ export {
   QrCode,
   Date,
   Arrow,
+  Share,
+  RightBackArrow,
+  UserDetailProfile,
+  PdfFile,
 };

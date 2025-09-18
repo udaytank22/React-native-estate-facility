@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
   dropdown: {
     height: verticalScale(40),
     borderWidth: scale(1),
-    borderRadius: moderateScale(8),
+    borderColor: '#ccc',
+    borderRadius: moderateScale(5),
     paddingHorizontal: moderateScale(10),
   },
   placeholderStyle: {

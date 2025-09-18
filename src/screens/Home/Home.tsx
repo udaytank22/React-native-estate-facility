@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   Image,
   Platform,
+  FlatList,
+  Pressable,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -42,6 +44,8 @@ import { RootNavigationProp } from '../../Navigation/NavigationType';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ServicesCard from '../../Components/CardComponent/ServiceCardCompoent';
 import { MainStyle } from '../../Assets/Style/MainStyle';
+import { shopData } from '../../Assets/StaticData/StaticData';
+import ShopCard from '../../Components/CardComponent/ShopCard';
 
 export const images = [
   require('../../Assets/Image/Banner.png'),
@@ -72,6 +76,14 @@ const HomeScreen = () => {
     getUserInfo();
   }, []);
 
+  const renderItem = ({ item }: any) => (
+    <ShopCard
+      image={item.ImageComp}
+      name={item.name}
+      onPress={() => console.log('Clicked:', item.name)}
+    />
+  );
+
   return (
     <>
       <CustomStatusBar />
@@ -84,12 +96,13 @@ const HomeScreen = () => {
           style={styles.header}
         >
           <View style={styles.headerTop}>
-            <View
+            <Pressable
               style={{
                 flexDirection: 'row',
                 alignItems: 'flex-start',
                 gap: scale(6),
               }}
+              onPress={() => navigation.navigate('Search')}
             >
               <View style={{ gap: scale(6) }}>
                 <View
@@ -104,7 +117,7 @@ const HomeScreen = () => {
                 </View>
                 <Text style={styles.blockText}>Block A-001</Text>
               </View>
-            </View>
+            </Pressable>
 
             <View style={styles.headerIcons}>
               {/* Chat Icon with badge */}
@@ -178,7 +191,7 @@ const HomeScreen = () => {
                         label: 'Business',
                         icon: Business, // replace with your SVG/icon component
                         background: '#e6f0ff',
-                        onPress: () => console.log('111'),
+                        onPress: () => navigation.navigate('Business'),
                       },
                     ]
                   : []),
@@ -186,7 +199,7 @@ const HomeScreen = () => {
                   label: 'Help Desk',
                   icon: Help,
                   background: '#ffe7e6',
-                  onPress: () => console.log('111'),
+                  onPress: () => navigation.navigate('HelpDesk'),
                 },
               ].map((item, index) => {
                 const Icon = item.icon; // important: assign component
@@ -445,55 +458,13 @@ const HomeScreen = () => {
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.shopRow}>
-                {[
-                  {
-                    name: 'Raghuvir Soda Shop',
-                    ImageComp: require('../../Assets/Image/Tice_1.jpg'), // Corrected import
-                    selected: true,
-                  },
-                  {
-                    name: 'Anjana Ice-cream Shop',
-                    ImageComp: require('../../Assets/Image/Tice_1.jpg'),
-                    selected: false,
-                  },
-                  {
-                    name: 'Anjana Ice-cream Shop',
-                    ImageComp: require('../../Assets/Image/Tice_1.jpg'),
-                    selected: false,
-                  },
-                  {
-                    name: 'Anjana Ice-cream Shop',
-                    ImageComp: require('../../Assets/Image/Tice_1.jpg'),
-                    selected: false,
-                  },
-                ].map((item, index) => (
-                  <View key={index} style={styles.shopCard}>
-                    <View style={{ borderRadius: 10, overflow: 'hidden' }}>
-                      <Image
-                        source={item.ImageComp}
-                        style={{
-                          height: verticalScale(131),
-                          width: scale(175),
-                        }}
-                      />
-                    </View>
-                    <View style={styles.shopFooter}>
-                      <Text style={styles.shopName}>{item.name}</Text>
-                      <LinearGradient
-                        colors={['#106099', '#2181bf']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={styles.shopIcon}
-                      >
-                        <Icon
-                          name="arrow-top-right-thin"
-                          color="white"
-                          size={15}
-                        />
-                      </LinearGradient>
-                    </View>
-                  </View>
-                ))}
+                <FlatList
+                  data={shopData}
+                  keyExtractor={(item, index) => index.toString()}
+                  renderItem={renderItem}
+                  horizontal
+                  showsVerticalScrollIndicator={false}
+                />
               </View>
             </ScrollView>
           </View>
@@ -576,7 +547,7 @@ const styles = StyleSheet.create({
   },
   searchWrapper: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignSelf: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
   },

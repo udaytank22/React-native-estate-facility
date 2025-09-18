@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SocietyPageList from '../screens/SocietyPageList/SocietyPageList';
 import PreApproval from '../screens/PreApproval/PreApproval';
@@ -9,6 +8,11 @@ import GateUpdate from '../screens/GateUpdate/GateUpdate';
 import Bill from '../screens/Bill/Bill';
 import { AppStackParamList } from './NavigationType';
 import VisitPass from '../screens/VisitPass/VisitPass';
+import Business from '../screens/Business/Business';
+import BusinessDetails from '../screens/Business/BusinessDetails';
+import HelpDesk from '../screens/Help/HelpDesk';
+import UserDetails from '../screens/UserDetails/UserDetails';
+import Search from '../screens/Search/Search';
 
 const stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -49,6 +53,31 @@ const AppStack = () => {
         <stack.Screen
           name="VisitPass"
           component={VisitPass}
+          options={{ headerShown: false }}
+        />
+        <stack.Screen
+          name="Business"
+          component={Business}
+          options={{ headerShown: false }}
+        />
+        <stack.Screen
+          name="BusinessDetails"
+          component={BusinessDetails}
+          options={{ headerShown: false }}
+        />
+        <stack.Screen
+          name="HelpDesk"
+          component={HelpDesk}
+          options={{ headerShown: false }}
+        />
+        <stack.Screen
+          name="UserDetails"
+          component={UserDetails}
+          options={{ headerShown: false }}
+        />
+        <stack.Screen
+          name="Search"
+          component={Search}
           options={{ headerShown: false }}
         />
       </stack.Navigator>

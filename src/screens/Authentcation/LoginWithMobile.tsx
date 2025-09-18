@@ -6,7 +6,7 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { MainStyle } from '../../Assets/Style/MainStyle';
 import CustomStatusBar from '../../Components/StatusBar';
 import Header from '../../Components/Header';
@@ -22,6 +22,11 @@ import { useAuth } from '../../CustomHooks/CustomHooks';
 import { useNavigation } from '@react-navigation/native';
 import { countryCodes } from '../../Assets/StaticData/StaticData';
 import CountryPickerModal from '../../Components/ModalComponents/CountryPickerModal';
+import CountryPicker, {
+  CountryCode,
+  DARK_THEME,
+} from 'react-native-country-picker-modal';
+import countryData from '../../Assets/StaticData/countries.json';
 
 const LoginWithMobile = () => {
   const { login } = useAuth();
@@ -29,6 +34,17 @@ const LoginWithMobile = () => {
   const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]); // default India
   const [modalVisible, setModalVisible] = useState(false);
   const [phone, setPhone] = useState('');
+
+  const [phoneCountryCode, setPhoneCountryCode] = useState<CountryCode>('IN');
+  const [showPhoneCountryPicker, setShowPhoneCountryPicker] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const phoneInput = useRef(null);
+
+  // const handleCountrySelect = country => {
+  //   setPhoneCountryCode(country.cca2);
+  //   setPhoneNumber(`+${country.callingCode[0]}`);
+  //   setShowPhoneCountryPicker(false);
+  // };
 
   return (
     <View style={MainStyle.mainContainer}>
@@ -49,6 +65,17 @@ const LoginWithMobile = () => {
             style={styles.countryContainer}
             onPress={() => setModalVisible(true)}
           >
+            {/* <CountryPicker
+              countryCode={phoneCountryCode}
+              visible={showPhoneCountryPicker}
+              onSelect={handleCountrySelect}
+              onClose={() => setShowPhoneCountryPicker(false)}
+              withFilter
+              withFlag
+              withCallingCode
+              withAlphaFilter
+              withModal
+            /> */}
             <Text style={{ fontSize: 20 }}>{selectedCountry.flag}</Text>
             <Feather
               name="chevron-down"
@@ -90,8 +117,16 @@ const LoginWithMobile = () => {
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
         onSelect={country => setSelectedCountry(country)}
-        countryCodes={countryCodes}
+        countryCodes={countryData}
       />
+      {/* <CountryPicker
+        countryCode={phoneCountryCode}
+        visible={showPhoneCountryPicker}
+        onSelect={handleCountrySelect}
+        onClose={() => setShowPhoneCountryPicker(false)}
+        withFlagButton={true}
+        withFilter
+      /> */}
     </View>
   );
 };

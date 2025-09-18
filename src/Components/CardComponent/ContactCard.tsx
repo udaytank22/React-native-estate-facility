@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { GestureResponderEvent } from 'react-native'; // Keep this if used, or remove if not.
 import { SvgProps } from 'react-native-svg';
+import { PhoneCall } from '../../Assets/Constant/Images';
 
 // Types
 interface ContactCardProps {
@@ -10,7 +11,6 @@ interface ContactCardProps {
   name: string;
   contact: string;
   onPressCall?: (event: GestureResponderEvent) => void;
-  CallIcon: React.FC<SvgProps>; // Call button SVG
 }
 
 const ContactCard: React.FC<ContactCardProps> = ({
@@ -18,7 +18,6 @@ const ContactCard: React.FC<ContactCardProps> = ({
   name,
   contact,
   onPressCall,
-  CallIcon,
 }) => {
   return (
     <View style={styles.container}>
@@ -33,7 +32,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
 
       {/* Call button */}
       <TouchableOpacity onPress={onPressCall}>
-        <CallIcon height={verticalScale(28)} width={scale(28)} />
+        <PhoneCall height={verticalScale(28)} width={scale(28)} />
       </TouchableOpacity>
     </View>
   );

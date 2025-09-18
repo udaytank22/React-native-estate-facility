@@ -56,7 +56,7 @@ const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
               <Icon
                 width={28}
                 height={28}
-                fill={isFocused ? '#034175' : 'transperent'} // 👈 Change color here
+                fill={isFocused ? '#034175' : 'transparent'} // 👈 Change color here
               />
               <Text
                 style={[

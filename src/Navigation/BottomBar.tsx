@@ -54,7 +54,7 @@ const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
               <Icon
                 width={28}
                 height={28}
-                fill={isFocused ? '#034175' : 'transperent'} // 👈 Change color here
+                fill={isFocused ? '#034175' : 'transparent'} // 👈 Change color here
               />
               <Text
                 style={[
@@ -79,7 +79,12 @@ const BottomBar = () => {
       tabBar={props => <CustomTabBar {...props} />}
     >
       {tabs.map(tab => (
-        <Tab.Screen key={tab.name} name={tab.name} component={tab.component} />
+        <Tab.Screen
+          key={tab.name}
+          name={tab.name}
+          component={tab.component}
+          options={{ lazy: true }}
+        />
       ))}
     </Tab.Navigator>
   );

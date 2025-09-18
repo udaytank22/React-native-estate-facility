@@ -70,7 +70,7 @@ export default function OnGoing({ navigation }) {
       <View style={[styles.container, { width }]}>
         {/* SVG scales based on screen width */}
         <View style={styles.imageWrapper}>
-          <Images />
+          <Images height={height * 0.6} />
         </View>
 
         <Text style={styles.title}>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   imageWrapper: {},
   title: {
     fontFamily: 'Poppins-SemiBold',
-    fontSize: scale(22),
+    fontSize: moderateScale(22),
     fontWeight: '600',
     color: '#034175',
     marginTop: 12,

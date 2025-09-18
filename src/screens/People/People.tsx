@@ -14,24 +14,35 @@ import { useNavigation } from '@react-navigation/native';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import SearchFilterBar from '../../Components/FilterFieldComponent';
 
-import { Request, PhoneCall } from '../../Assets/Constant/Images';
+import { Request } from '../../Assets/Constant/Images';
 import { socityContact, tabs } from '../../Assets/StaticData/StaticData';
 import ContactCard from '../../Components/CardComponent/ContactCard';
 import { MainStyle } from '../../Assets/Style/MainStyle';
+import AddNewRequestModal from '../../Components/ModalComponents/AddRequestModal';
 
 const People = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState<number | null>(tabs[0].id);
+  const [newRequestModalVisible, setNewRequestModalVisible] = useState(false);
 
   const renderContact = ({ item }: { item: (typeof socityContact)[0] }) => (
     <ContactCard
       Icon={item.icon}
       name={item.name}
       contact={item.contact}
-      CallIcon={PhoneCall}
       onPressCall={() => console.log(`Calling ${item.name}...`)}
     />
   );
+
+  const handleAdd = () => {
+    setNewRequestModalVisible(true);
+    // open modal or navigate
+  };
+
+  const OnCardPress = () => {
+    setNewRequestModalVisible(false);
+    navigation.navigate('UserDetails');
+  };
 
   return (
     <>
@@ -80,7 +91,10 @@ const People = () => {
 
               {/* new Request */}
               <View style={MainStyle.section}>
-                <TouchableOpacity style={styles.requestCard}>
+                <TouchableOpacity
+                  style={styles.requestCard}
+                  onPress={handleAdd}
+                >
                   {/* Left side: icon + text */}
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <View
@@ -170,6 +184,11 @@ const People = () => {
           </View>
         </View>
       </SafeAreaView>
+      <AddNewRequestModal
+        visible={newRequestModalVisible}
+        onClose={() => setNewRequestModalVisible(false)}
+        onCardPress={OnCardPress}
+      />
     </>
   );
 };

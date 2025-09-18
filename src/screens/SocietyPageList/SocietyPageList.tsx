@@ -1,10 +1,4 @@
-import {
-  View,
-  StatusBar,
-  StyleSheet,
-  FlatList,
-  ScrollView,
-} from 'react-native';
+import { View, StatusBar, FlatList, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import ListHeader from '../../Components/ListHeader';
@@ -19,7 +13,7 @@ import {
 } from '../../Assets/StaticData/StaticData';
 import { BusinessCard } from '../../Components/CardComponent/BusinessCardCompoent';
 import AddBusinessModal from '../../Components/ModalComponents/AddBusinessModal';
-import ListPropertyCard from '../../Components/CardComponent/ListPropertyCard';
+import PropertyCard from '../../Components/CardComponent/ListPropertyCard';
 import AddPropertyModal from '../../Components/ModalComponents/AddPropertModal';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { MainStyle } from '../../Assets/Style/MainStyle';
@@ -85,7 +79,7 @@ const SocietyPageList = ({ route }: any) => {
   };
 
   const renderPropertyCard = ({ item }: any) => {
-    return <ListPropertyCard property={item} />;
+    return <PropertyCard property={item} />;
   };
 
   return (
